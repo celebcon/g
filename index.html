@@ -1,10 +1,656 @@
-<!DOCTYPE html>
 <html>
-<body>
 
-<h2>HTML Image</h2>
-<img src="thumb.png" width="500" height="333">
+<style>
+p.a {
+  white-space: pre;
+  color: white;
+}
+</style>
+
+<body style="background-color:black;">
+
+<canvas id="myCanvas" onload = 'move()' onclick = "clickfunc()" width="800" height="450" style=" padding-left: 0;
+    padding-right: 0;
+	
+    margin-left: auto;
+    margin-right: auto;
+	margin-top: 0px;
+    display: block;border:3px solid white;">
+</canvas>
 
 </body>
-</html>
+
+
+<script>
+var canvas = document.getElementById("myCanvas");
+var ctx = canvas.getContext("2d");
+ctx.font = "16px Arial";
+
+var canvasX = 0; 
+var canvasY = 0; 
+canvas.addEventListener("mousemove", function(e) { 
+    var cRect = canvas.getBoundingClientRect();              // Gets the CSS positions along with width/height
+    canvasX = Math.round(e.clientX - cRect.left);        // Subtract the 'left' of the canvas from the X/Y
+    canvasY = Math.round(e.clientY - cRect.top);         // positions to get make (0,0) the top left of the    
+});
+
+
+function sound(src) {
+ this.sound = document.createElement("audio");
+this.sound.src = src;
+this.sound.setAttribute("preload", "auto");
+this.sound.setAttribute("controls", "none");
+this.sound.style.display = "none";
+document.body.appendChild(this.sound);
+this.play = function(){
+this.sound.play();
+}
+this.stop = function(){
+this.sound.pause();
+}   
+}
+
+//backtrack = new sound("sounds/backtrack.mp3");
+
+var button = function(x,y,w,c,n,s,m,show) {
+    this.x = x;
+    this.y = y;
+    this.w = w;
+    this.h = this.w*4/3;
+	this.c = c;
+	this.n = n;
+	this.s = s; 
+	this.m = m;
+	this.verified = false;
+	this.checking = false;
+	this.purchased = false;
+	this.show = show;
+	
+};
+
+button.prototype.draw = function() {
+
+    if (this.s == scene && this.show == "on"){
+		
+	var myImage = new Image(100, 200);
+    myImage.src = 'celebs/' + this.n + '.png';
+    ctx.drawImage(myImage,this.x - shiftX,this.y - shiftY,this.w,this.h);
+	
+	ctx.font = "25px Times New Roman";
+    ctx.fillStyle = "white";
+	ctx.fillText(this.n,this.x - 5 - shiftX,this.y + 290 - shiftY);
+	
+	ctx.font = "20px Times New Roman";
+    ctx.fillStyle = "white";
+	ctx.fillText("Cost: " + String(this.c) + " points",this.x + 50 - shiftX,this.y + 320 - shiftY);
+	
+
+	}
+	
+   if (this.purchased == true && scene == this.s){ctx.drawImage(check,this.x - shiftX,this.y - shiftY,this.w,this.h);}
+
+	
+	if (this.checking == true && this.purchased == false){
+		this.verified = true;
+		if (this.s != scene){this.verified = false;}
+		if (points - this.c < 0){this.verified = false; if (scene == this.s){ctx.drawImage(cross,this.x - shiftX,this.y - shiftY,this.w,this.h);}}
+	}
+	
+	if (this.verified == true){
+	    if (this.purchased == false){
+		points = points - this.c; 
+		printout += this.n + this.m + "\n\n";
+
+		}
+		this.purchased = true;
+	}
+};
+
+var buttonArray = [];
+
+//buttonArray.push(new button(40,50,200,3,"Alexis Ren",1, ": custom message here","on"));
+
+//buttonArray.push(new button(300,50,200,5,"Alice Eve",1, ": custom message here","on"));
+
+//buttonArray.push(new button(550,50,200,8,"Alison Brie",1, ": custom message here","on"));
+
+
+function clickfunc(){
+
+for(var i = 0; i < buttonArray.length ; i++) {
+			if (canvasX > buttonArray[i].x - shiftX && canvasX < buttonArray[i].x + buttonArray[i].w - shiftX){
+				if (canvasY > buttonArray[i].y - shiftY && canvasY < buttonArray[i].y + buttonArray[i].h - shiftY){
+					if (scene == buttonArray[i].s){buttonArray[i].checking = true;}
+				}
+				
+			}
+			
+}
+
+if (scene == 1){
+	if (rolled == 0 && canvasX > 0 && canvasX < 130 && canvasY < 144){
+	startinfo = 0;
+	rolled = 1;
+	dice = Math.round(Math.random() * 5) + 1;
+	//dice = 1;
+	delcarX = carX + dice*100;
+	acc = 0;
+	}
+	
+	if (canvasX > 160 && canvasX < 590 && canvasY > 35 && canvasY < 115 && homeinfo == 1 && carX == delcarX){fade = 1; sendScene = 2;}
+
+
+}//END SCENE 1
+
+if (scene == 2){
+
+
+    if (firstbought == 1 && secondbought == 0 && canvasX > 310 + shiftFac && canvasX < 467  + shiftFac && canvasY > 69 && canvasY < 155 && points < 100){outpoints = 1;}
+	if (firstbought == 1 && secondbought == 0 && canvasX > 310 + shiftFac && canvasX < 467  + shiftFac && canvasY > 157 && canvasY < 244 && points < 200){outpoints = 1;}
+	if (firstbought == 1 && secondbought == 0 && canvasX > 310 + shiftFac && canvasX < 467  + shiftFac && canvasY > 250 && canvasY < 330 && points < 300){outpoints = 1;}
+
+	if (firstbought == 1 && secondbought == 0 && canvasX > 310 + shiftFac && canvasX < 467  + shiftFac && canvasY > 69 && canvasY < 155 && points >= 100){points-=100; secondbought = 1; printout+=". Cum on her belly"; fade = 1; sendScene = 1;}
+	if (firstbought == 1 && secondbought == 0 && canvasX > 310 + shiftFac && canvasX < 467  + shiftFac && canvasY > 157 && canvasY < 244 && points >= 200){points-=200; secondbought = 1; printout+=". Cum on her tits"; fade = 1; sendScene = 1;}
+	if (firstbought == 1 && secondbought == 0 && canvasX > 310 + shiftFac && canvasX < 467  + shiftFac && canvasY > 250 && canvasY < 330 && points >= 300){points-=300; secondbought = 1; printout+=". Cum inside her"; fade = 1; sendScene = 1;}
+
+	if (canvasX > 500 && canvasX < 800 && canvasY > 345 && canvasY < 400){fade = 1; sendScene = 1;}
+	
+	if (canvasX > 640 && canvasX < 790 && canvasY < 345 && firstbought == 0 && points - c3 < 0){outpoints = 1;}
+	if (canvasX > 474 && canvasX < 635 && canvasY < 345 && firstbought == 0 && points - c2 < 0){outpoints = 1;}
+	if (canvasX > 310 && canvasX < 467 && canvasY < 345 && firstbought == 0 && points - c1 < 0){outpoints = 1;}
+
+	if (canvasX > 310 && canvasX < 467 && canvasY < 345 && firstbought == 0 && points - c1 >= 0){points-=c1; firstbought = 1; printout+="\n\n" + girl + ": Standard";}
+	if (canvasX > 474 && canvasX < 635 && canvasY < 345 && firstbought == 0 && points - c2 >= 0){points-=c2; firstbought = 1; printout+="\n\n" + girl + ": Premium"; shiftFac = 160; premChosen = 1;}
+	if (canvasX > 640 && canvasX < 790 && canvasY < 345 && firstbought == 0 && points - c3 >= 0){points-=c3; firstbought = 1; printout+="\n\n" + girl + ": Royal"; shiftFac = 330; premChosen = 2;}
+	
+
+}
+
+
+if (scene == 0 && canvasX > 200 && canvasX < 630 && canvasY > 310 && canvasY < 390){
+fade = 1; sendScene = 1;
+}
+
+if (scene == -1 && canvasX > 200 && canvasX < 630 && canvasY > 310 && canvasY < 390){
+fade = 1; sendScene = 0;
+}
+
+if (scene == -2 && canvasX > 210 && canvasX < 590 && canvasY > 255 && canvasY < 333){
+fade = 1; sendScene = -1;
+}
+
+if (scene == 1){
+copytoclipboard(printout);
+}
+
+
+}//End clickfunc
+
+var myVar = setInterval(move, 20);
+
+var scene = -2; 
+
+var points = 1000;
+
+var shiftX = 0;
+
+var shiftY = 0;
+
+var printout = "";
+
+var brightFac = 0;
+var grayFac = 0;
+
+var dice = 0; 
+var rolled = 1;
+
+var fade = 0; 
+
+var carX = 0;
+var carY = 0;
+var acc = 0;
+
+var delcarX = 0;
+var homeinfo = 0;
+
+var smokeX = 0;
+
+var girl = "";
+
+var c1 = 0;
+var c2 = 0;
+var c3 = 0;
+
+var shiftFac = 0;
+var opAnim = 0;
+
+var firstbought = 0; 
+var secondbought = 0;
+
+var sendScene = 0;
+
+var premChosen = 0;
+
+var outpoints = 0;
+
+var outTimer = 0;
+
+var startinfo = 1;
+
+function move() {
+
+
+//BG
+ctx.fillStyle = "black";
+ctx.fillRect(0,0, 800, 400);
+
+if (scene == -2){
+ctx.drawImage(intro,0,0,800,400);
+}
+
+if (scene == -1){
+ctx.drawImage(page1,0,0,800,400);
+}
+
+if (scene == 3){
+ctx.drawImage(endimg,0,0,800,400);
+}
+
+if (scene == 0){
+ctx.drawImage(page2,0,0,800,400);
+}
+
+if (scene == 1){
+ctx.drawImage(background,-800 + carX/5,-50,900,450);
+ctx.drawImage(background,carX/5,-50,900,450);
+ctx.drawImage(background,-1600 + carX/5,-50,900,450);
+ctx.drawImage(background,-2400 + carX/5,-50,900,450);
+
+if (startinfo == 1){ctx.drawImage(alarmarrow,0,0,800,400);}
+
+ctx.drawImage(board,0 - carX,0,10450,400);
+ctx.drawImage(car,0,carY,800,400);
+ctx.drawImage(numonly,0 - carX,0,10450,400);
+ctx.drawImage(rollimg,0,0,128,159);
+if (dice == 1){ctx.drawImage(oneroll,0,0,128,159);}
+if (dice == 2){ctx.drawImage(tworoll,0,0,128,159);}
+if (dice == 3){ctx.drawImage(threeroll,0,0,128,159);}
+if (dice == 4){ctx.drawImage(fourroll,0,0,128,159);}
+if (dice == 5){ctx.drawImage(fiveroll,0,0,128,159);}
+if (dice == 6){ctx.drawImage(sixroll,0,0,128,159);}
+
+ctx.drawImage(moneysign,600,0,200,144);
+
+
+ctx.font = "35px Arial";
+ctx.fillStyle = "lightgreen";
+ctx.fillText(points,670,89);
+
+
+
+ctx.drawImage(smoke,0 - smokeX,0,800,400); ctx.drawImage(smoke,800 - smokeX,0,800,400); ctx.drawImage(smoke,1600 - smokeX,0,800,400); 
+
+if (rolled == 1){
+	if (carX < delcarX){carX += acc; acc+=1; smokeX+=10; if (smokeX > 800){smokeX = 0;}} 
+	if(acc>10){acc-=2;} if (carX > delcarX){carX-=1;}
+	
+	if (carX == delcarX){rolled = 0;  
+	     var randSeed = -100 + Math.round(Math.random() * 2) * 100;
+		 firstbought = 0; opAnim = 400; secondbought = 0; premChosen = 0; shiftFac = 0;
+
+       	if (delcarX >= 100*100){fade = 1; sendScene = 3;}
+
+       	if (delcarX == 99*100){homeinfo = 1; girl = "Elizabeth Olsen"; c1 = 500 + randSeed; c2 = 700 + randSeed; c3 = 1000 + randSeed;}
+
+       	if (delcarX == 98*100){homeinfo = 1; girl = "Sarah Hyland"; c1 = 300 + randSeed; c2 = 500 + randSeed; c3 = 700 + randSeed;}
+
+       	if (delcarX == 94*100){homeinfo = 1; girl = "Monica Barbaro"; c1 = 200 + randSeed; c2 = 400 + randSeed; c3 = 600 + randSeed;}
+
+       	if (delcarX == 93*100){homeinfo = 1; girl = "Elizabeth Debicki"; c1 = 200 + randSeed; c2 = 400 + randSeed; c3 = 600 + randSeed;}
+
+       	if (delcarX == 91*100){homeinfo = 1; girl = "Cara Delevingne"; c1 = 300 + randSeed; c2 = 500 + randSeed; c3 = 700 + randSeed;}
+
+       	if (delcarX == 90*100){homeinfo = 1; girl = "Sammi Hanratty"; c1 = 200 + randSeed; c2 = 400 + randSeed; c3 = 600 + randSeed;}
+
+       	if (delcarX == 88*100){homeinfo = 1; girl = "Billie Eilish"; c1 = 400 + randSeed; c2 = 600 + randSeed; c3 = 900 + randSeed;}
+
+       	if (delcarX == 85*100){homeinfo = 1; girl = "Anna Kendrick"; c1 = 400 + randSeed; c2 = 600 + randSeed; c3 = 900 + randSeed;}
+
+       	if (delcarX == 84*100){homeinfo = 1; girl = "Amanda Cerny"; c1 = 300 + randSeed; c2 = 500 + randSeed; c3 = 700 + randSeed;}
+
+       	if (delcarX == 82*100){homeinfo = 1; girl = "April Bowlby"; c1 = 200 + randSeed; c2 = 400 + randSeed; c3 = 600 + randSeed;}
+
+       	if (delcarX == 79*100){homeinfo = 1; girl = "Brianna Hildebrand"; c1 = 200 + randSeed; c2 = 400 + randSeed; c3 = 600 + randSeed;}
+       	if (delcarX == 78*100){homeinfo = 1; girl = "Chloe Kim"; c1 = 200 + randSeed; c2 = 400 + randSeed; c3 = 600 + randSeed;}
+
+       	if (delcarX == 75*100){homeinfo = 1; girl = "Kaia Gerber"; c1 = 200 + randSeed; c2 = 400 + randSeed; c3 = 600 + randSeed;}
+
+       	if (delcarX == 73*100){homeinfo = 1; girl = "Mandy Moore"; c1 = 200 + randSeed; c2 = 400 + randSeed; c3 = 600 + randSeed;}
+
+       	if (delcarX == 71*100){homeinfo = 1; girl = "Neve Campbell"; c1 = 200 + randSeed; c2 = 400 + randSeed; c3 = 600 + randSeed;}
+
+
+     	if (delcarX == 97*100){points = points + 500; homeinfo = 0;}		 
+     	if (delcarX == 96*100){points = points + 1000; homeinfo = 0;}		 
+     	if (delcarX == 95*100){points = points + 500; homeinfo = 0;}		 
+
+     	if (delcarX == 92*100){points = points + 500; homeinfo = 0;}		 
+
+     	if (delcarX == 89*100){points = points + 500; homeinfo = 0;}		 
+
+     	if (delcarX == 87*100){points = points + 500; homeinfo = 0;}		 
+
+     	if (delcarX == 86*100){points = points + 1000; homeinfo = 0;}		 
+
+     	if (delcarX == 83*100){points = points + 500; homeinfo = 0;}		 
+
+     	if (delcarX == 81*100){points = points + 500; homeinfo = 0;}		 
+
+     	if (delcarX == 80*100){points = points + 1000; homeinfo = 0;}		 
+
+     	if (delcarX == 77*100){points = points + 500; homeinfo = 0;}		 
+
+     	if (delcarX == 76*100){points = points + 1000; homeinfo = 0;}		 
+
+     	if (delcarX == 74*100){points = points + 500; homeinfo = 0;}		 
+
+     	if (delcarX == 72*100){points = points + 500; homeinfo = 0;}		 
+
+     	if (delcarX == 70*100){points = points + 500; homeinfo = 0;}		 
+     	if (delcarX == 69*100){points = points + 1000; homeinfo = 0;}		 
+
+       	if (delcarX == 68*100){homeinfo = 1; girl = "AnnaSophia Robb"; c1 = 300 + randSeed; c2 = 500 + randSeed; c3 = 700 + randSeed;}
+       	if (delcarX == 67*100){homeinfo = 1; girl = "Rosie Huntington-Whiteley"; c1 = 200 + randSeed; c2 = 400 + randSeed; c3 = 600 + randSeed;}
+
+     	if (delcarX == 66*100){points = points + 500; homeinfo = 0;}		 
+
+       	if (delcarX == 65*100){homeinfo = 1; girl = "Victoria Justice"; c1 = 500 + randSeed; c2 = 700 + randSeed; c3 = 1100 + randSeed;}
+       	if (delcarX == 64*100){homeinfo = 1; girl = "Winona Ryder"; c1 = 300 + randSeed; c2 = 500 + randSeed; c3 = 700 + randSeed;}
+
+     	if (delcarX == 63*100){points = points + 500; homeinfo = 0;}		 
+       	if (delcarX == 62*100){homeinfo = 1; girl = "Emily VanCamp"; c1 = 200 + randSeed; c2 = 400 + randSeed; c3 = 600 + randSeed;}
+     	if (delcarX == 61*100){points = points + 1000; homeinfo = 0;}		 
+     	if (delcarX == 60*100){points = points + 1000; homeinfo = 0;}		 
+
+       	if (delcarX == 59*100){homeinfo = 1; girl = "Yvonne Strahovski"; c1 = 400 + randSeed; c2 = 600 + randSeed; c3 = 800 + randSeed;}
+       	if (delcarX == 58*100){homeinfo = 1; girl = "Erin Moriarty"; c1 = 200 + randSeed; c2 = 400 + randSeed; c3 = 600 + randSeed;}
+       	if (delcarX == 56*100){homeinfo = 1; girl = "Caylee Cowan"; c1 = 200 + randSeed; c2 = 400 + randSeed; c3 = 600 + randSeed;}
+
+     	if (delcarX == 57*100){points = points + 500; homeinfo = 0;}		 
+
+     	if (delcarX == 55*100){points = points + 500; homeinfo = 0;}		 
+    	if (delcarX == 54*100){points = points + 1000; homeinfo = 0;}		 
+
+       	if (delcarX == 53*100){homeinfo = 1; girl = "Kristen Dunst"; c1 = 300 + randSeed; c2 = 500 + randSeed; c3 = 700 + randSeed;}
+
+      	if (delcarX == 52*100){homeinfo = 1; girl = "Nina Agdal"; c1 = 200 + randSeed; c2 = 400 + randSeed; c3 = 600 + randSeed;}
+
+    	if (delcarX == 51*100){points = points + 500; homeinfo = 0;}		 
+ 
+    	if (delcarX == 50*100){points = points + 1000; homeinfo = 0;}		 
+
+     	if (delcarX == 49*100){homeinfo = 1; girl = "Ariel Winter"; c1 = 200 + randSeed; c2 = 400 + randSeed; c3 = 600 + randSeed;}
+
+   	    if (delcarX == 48*100){points = points + 500; homeinfo = 0;}		 
+
+    	if (delcarX == 47*100){homeinfo = 1; girl = "Emily Blunt"; c1 = 300 + randSeed; c2 = 500 + randSeed; c3 = 700 + randSeed;}
+			
+   	    if (delcarX == 46*100){points = points + 500; homeinfo = 0;}		 
+
+   		if (delcarX == 45*100){homeinfo = 1; girl = "Jane Levy"; c1 = 300 + randSeed; c2 = 500 + randSeed; c3 = 700 + randSeed;}
+
+  	    if (delcarX == 44*100){points = points + 500; homeinfo = 0;}		 
+	
+	    if (delcarX == 43*100){points = points + 1000; homeinfo = 0;}
+		
+  		if (delcarX == 42*100){homeinfo = 1; girl = "Olivia Rodrigo"; c1 = 300 + randSeed; c2 = 500 + randSeed; c3 = 700 + randSeed;}
+
+ 		if (delcarX == 41*100){homeinfo = 1; girl = "Elsie Hewitt"; c1 = 200 + randSeed; c2 = 400 + randSeed; c3 = 600 + randSeed;}
+
+ 	    if (delcarX == 40*100){points = points + 500; homeinfo = 0;}		 
+	
+	    if (delcarX == 39*100){points = points + 1000; homeinfo = 0;}		 
+
+		if (delcarX == 38*100){homeinfo = 1; girl = "Mila Kunis"; c1 = 500 + randSeed; c2 = 700 + randSeed; c3 = 1100 + randSeed;}
+		 
+		if (delcarX == 37*100){points = points + 500; homeinfo = 0;}		 
+
+		if (delcarX == 36*100){homeinfo = 1; girl = "Salma Hayek"; c1 = 500 + randSeed; c2 = 700 + randSeed; c3 = 1000 + randSeed;}
+		
+		if (delcarX == 35*100){homeinfo = 1; girl = "Rihanna"; c1 = 500 + randSeed; c2 = 700 + randSeed; c3 = 1000 + randSeed;}
+
+		if (delcarX == 34*100){points = points + 1000; homeinfo = 0;}		 
+
+		if (delcarX == 33*100){homeinfo = 1; girl = "Jenna Fischer"; c1 = 300 + randSeed; c2 = 500 + randSeed; c3 = 700 + randSeed;}
+
+		if (delcarX == 32*100){homeinfo = 1; girl = "Elizabeth Banks"; c1 = 200 + randSeed; c2 = 400 + randSeed; c3 = 600 + randSeed;}
+
+		if (delcarX == 31*100){points = points + 1000; homeinfo = 0;}		 
+		 
+		if (delcarX == 30*100){homeinfo = 1; girl = "Emmanuelle Chriqui"; c1 = 400 + randSeed; c2 = 600 + randSeed; c3 = 800 + randSeed;}
+
+		if (delcarX == 29*100){homeinfo = 1; girl = "Bella Hadid"; c1 = 300 + randSeed; c2 = 500 + randSeed; c3 = 700 + randSeed;}
+
+		if (delcarX == 28*100){points = points + 500; homeinfo = 0;}		 
+
+		if (delcarX == 27*100){homeinfo = 1; girl = "Doja Cat"; c1 = 300 + randSeed; c2 = 500 + randSeed; c3 = 700 + randSeed;}
+
+		if (delcarX == 26*100){points = points + 500; homeinfo = 0;}		 
+
+		if (delcarX == 25*100){homeinfo = 1; girl = "Maude Apatow"; c1 = 200 + randSeed; c2 = 400 + randSeed; c3 = 600 + randSeed;}
+
+		if (delcarX == 24*100){points = points + 500; homeinfo = 0;}		 
+		if (delcarX == 23*100){points = points + 500; homeinfo = 0;}		 
+		if (delcarX == 22*100){homeinfo = 1; girl = "Candice Swanepoel"; c1 = 300 + randSeed; c2 = 500 + randSeed; c3 = 700 + randSeed;}
+		if (delcarX == 21*100){points = points + 500; homeinfo = 0;}		 
+		if (delcarX == 20*100){homeinfo = 1; girl = "Felicity Jones"; c1 = 200 + randSeed; c2 = 400 + randSeed; c3 = 600 + randSeed;}
+		if (delcarX == 19*100){homeinfo = 1; girl = "Nicola Cavanis"; c1 = 200 + randSeed; c2 = 400 + randSeed; c3 = 600 + randSeed;}
+		if (delcarX == 18*100){points = points + 1500; homeinfo = 0;}
+		if (delcarX == 17*100){homeinfo = 1; girl = "Dakota Johnson"; c1 = 300 + randSeed; c2 = 500 + randSeed; c3 = 800 + randSeed;}
+		if (delcarX == 16*100){points = points + 500; homeinfo = 0;}
+		if (delcarX == 15*100){points = points + 500; homeinfo = 0;}
+		if (delcarX == 14*100){homeinfo = 1; girl = "Olivia Munn"; c1 = 400 + randSeed; c2 = 600 + randSeed; c3 = 800 + randSeed;}
+		if (delcarX == 13*100){points = points + 500; homeinfo = 0;}
+		if (delcarX == 12*100){homeinfo = 1; girl = "Natalie Dormer"; c1 = 500 + randSeed; c2 = 700 + randSeed; c3 = 1100 + randSeed;}
+		if (delcarX == 11*100){points = points + 500; homeinfo = 0;}
+		if (delcarX == 10*100){points = points + 500; homeinfo = 0;}
+		if (delcarX == 9*100){homeinfo = 1; girl = "Emma Roberts"; c1 = 300 + randSeed; c2 = 500 + randSeed; c3 = 700 + randSeed;}
+		if (delcarX == 8*100){homeinfo = 1; girl = "Julia Fox"; c1 = 200 + randSeed; c2 = 400 + randSeed; c3 = 600 + randSeed;}
+		if (delcarX == 7*100){points = points + 500; homeinfo = 0;}
+		if (delcarX == 6*100){points = points + 500; homeinfo = 0;}
+		if (delcarX == 5*100){homeinfo = 1; girl = "Karen Fukuhara"; c1 = 300 + randSeed; c2 = 500 + randSeed; c3 = 700 + randSeed;}
+		if (delcarX == 4*100){points = points + 500; homeinfo = 0;}
+		if (delcarX == 3*100){homeinfo = 1; girl = "Kiernan Shipka"; c1 = 400 + randSeed; c2 = 600 + randSeed; c3 = 800 + randSeed;}
+		if (delcarX == 2*100){points = points + 1000; homeinfo = 0;}
+		if (delcarX == 1*100){homeinfo = 1; girl = "Camila Cabello"; c1 = 400 + randSeed; c2 = 600 + randSeed; c3 = 800 + randSeed;}
+	}
+	
+	
+} //End Rolled 1
+
+if (points < 0){points = 0;}
+
+if (homeinfo == 1 && secondbought == 0){ctx.drawImage(housebutton,150,30,441,92);}
+
+}//END OF SCENE 1
+
+if (scene == 2){
+ctx.drawImage(homebg,0,0,800,400);
+
+var celebImage = new Image(100, 200);
+celebImage.src = 'celebs/' + girl + '.png';
+ctx.drawImage(celebImage,0,0,300,400);
+ctx.drawImage(homeui,0,0,800,400);
+
+
+if (firstbought == 0){
+ctx.font = "20px Arial";
+ctx.fillStyle = "lightgreen";
+ctx.fillText("$" + c1,370,57);
+ctx.fillText("$" + c2,535,57);
+ctx.fillText("$" + c3,700,57);
+}
+
+if (firstbought == 1){
+if (premChosen == 0){ctx.drawImage(standard,0,0 + opAnim,800,400);}
+if (premChosen == 1){ctx.drawImage(premium,0,0 + opAnim,800,400);}
+if (premChosen == 2){ctx.drawImage(royal,0,0 + opAnim,800,400);}
+
+if (opAnim > 0){opAnim -= (opAnim/8);}
+if (opAnim < 0){opAnim += 1;}
+}
+
+
+ctx.font = "35px Arial";
+ctx.fillStyle = "lightgreen";
+ctx.fillText(points,389,385);
+
+
+
+}//END OF SCENE 2
+
+//Prototypes
+for(var i = 0; i < buttonArray.length ; i++) {
+        buttonArray[i].draw();
+}
+
+
+if (outpoints == 1){
+outTimer+=20;
+ctx.drawImage(outsign,0,-200 + outTimer,800,400);
+if (outTimer > 100){outpoints = 2; outTimer = 0;}
+}
+
+if (outpoints == 2){ctx.drawImage(outsign,0,0,800,400); outTimer++; if (outTimer > 50){outpoints = 3; outTimer = 0;}}
+
+if (outpoints == 3){
+outTimer-=10;
+ctx.drawImage(outsign,0,-200 + outTimer,800,400);
+if (outTimer < 0){outpoints = 0;}
+}
+
+
+
+//ctx.shadowColor = "black";
+//ctx.shadowBlur = 0;
+//ctx.shadowOffsetX = 0;
+//ctx.shadowOffsetY = 0;
+
+//Bottom UI
+ctx.fillStyle = "gray";
+ctx.fillRect(0,400, 800, 400);
+
+ctx.font = "20px Arial";
+ctx.fillStyle = "white";
+ctx.fillText("X: " + canvasX,4,420);
+ctx.fillText("Y: " + canvasY,3,440);
+
+ctx.fillText("shiftX: " + shiftX,220,420);
+ctx.fillText("shiftY: " + shiftY,220,440);
+
+
+ctx.fillText("Scene: " + scene,80,420);
+ctx.fillText("Points: " + points,80,440);
+ctx.fillText("Dice: " + dice,400,440);
+ctx.fillText("carX: " + carX,400,420);
+
+
+document.getElementById("demo").innerHTML = printout; 
+
+
+
+if (fade == 1){brightFac += 5; 
+if (brightFac > 0){ctx.drawImage(black10,0,0,800,400);}
+if (brightFac > 10){ctx.drawImage(black20,0,0,800,400);}
+if (brightFac > 20){ctx.drawImage(black30,0,0,800,400);}
+if (brightFac > 30){ctx.drawImage(black40,0,0,800,400);}
+if (brightFac > 40){ctx.drawImage(black50,0,0,800,400);}
+if (brightFac > 50){ctx.drawImage(black60,0,0,800,400);}
+if (brightFac > 60){ctx.drawImage(black70,0,0,800,400);}
+if (brightFac > 70){ctx.drawImage(black80,0,0,800,400);}
+if (brightFac > 80){ctx.drawImage(black90,0,0,800,400);}
+if (brightFac > 90){ctx.drawImage(black100,0,0,800,400);}
+if (brightFac > 99){ctx.drawImage(black100,0,0,800,400); fade = 2; scene = sendScene; brightFac = 0;}
+}
+
+
+if (fade == 2){brightFac += 5; 
+if (brightFac > 0 && brightFac <= 10){ctx.drawImage(black90,0,0,800,400);}
+if (brightFac > 10 && brightFac <= 20){ctx.drawImage(black80,0,0,800,400);}
+if (brightFac > 20 && brightFac <= 30){ctx.drawImage(black70,0,0,800,400);}
+if (brightFac > 30 && brightFac <= 40){ctx.drawImage(black60,0,0,800,400);}
+if (brightFac > 40 && brightFac <= 50){ctx.drawImage(black50,0,0,800,400);}
+if (brightFac > 50 && brightFac <= 60){ctx.drawImage(black50,0,0,800,400);}
+if (brightFac > 60 && brightFac <= 70){ctx.drawImage(black30,0,0,800,400);}
+if (brightFac > 70 && brightFac <= 80){ctx.drawImage(black20,0,0,800,400);}
+if (brightFac > 80 && brightFac <= 90){ctx.drawImage(black10,0,0,800,400);}
+if (brightFac > 99){fade = 0; scene = sendScene;}
+}
+
+
+}//End of FUNCTION
+
+function copytoclipboard(text) {
+   const elem = document.createElement('textarea');
+   elem.value = text;
+   document.body.appendChild(elem);
+   elem.select();
+   document.execCommand('copy');
+   document.body.removeChild(elem);
+}
+
+
+</script>
+
+<p class="a" id = "demo" value = ""></p>
+
+<img id="check"  style="display:none; visibility:hidden;" src="gui/check.png" alt="">
+<img id="cross"  style="display:none; visibility:hidden;" src="gui/cross.png" alt="">
+<img id="board"  style="display:none; visibility:hidden;" src="gui/board.png" alt="">
+<img id="car"  style="display:none; visibility:hidden;" src="gui/car.png" alt="">
+<img id="rollimg"  style="display:none; visibility:hidden;" src="gui/rollimg.png" alt="">
+<img id="housebutton"  style="display:none; visibility:hidden;" src="gui/housebutton.png" alt="">
+<img id="moneysign"  style="display:none; visibility:hidden;" src="gui/moneysign.png" alt="">
+<img id="background"  style="display:none; visibility:hidden;" src="gui/background.png" alt="">
+<img id="numonly"  style="display:none; visibility:hidden;" src="gui/numonly.png" alt="">
+
+<img id="homebg"  style="display:none; visibility:hidden;" src="gui/homebg.png" alt="">
+<img id="homeui"  style="display:none; visibility:hidden;" src="gui/homeui.png" alt="">
+<img id="smoke"  style="display:none; visibility:hidden;" src="fx/smoke.png" alt="">
+<img id="standard"  style="display:none; visibility:hidden;" src="gui/standard.png" alt="">
+<img id="premium"  style="display:none; visibility:hidden;" src="gui/premium.png" alt="">
+<img id="royal"  style="display:none; visibility:hidden;" src="gui/royal.png" alt="">
+
+<img id="intro"  style="display:none; visibility:hidden;" src="gui/intro.png" alt="">
+<img id="page1"  style="display:none; visibility:hidden;" src="gui/page1.png" alt="">
+<img id="page2"  style="display:none; visibility:hidden;" src="gui/page2.png" alt="">
+
+<img id="alarmarrow"  style="display:none; visibility:hidden;" src="gui/alarmarrow.png" alt="">
+<img id="endimg"  style="display:none; visibility:hidden;" src="gui/end.png" alt="">
+
+<img id="oneroll"  style="display:none; visibility:hidden;" src="gui/oneroll.png" alt="">
+<img id="tworoll"  style="display:none; visibility:hidden;" src="gui/tworoll.png" alt="">
+<img id="threeroll"  style="display:none; visibility:hidden;" src="gui/threeroll.png" alt="">
+<img id="fourroll"  style="display:none; visibility:hidden;" src="gui/fourroll.png" alt="">
+<img id="fiveroll"  style="display:none; visibility:hidden;" src="gui/fiveroll.png" alt="">
+<img id="sixroll"  style="display:none; visibility:hidden;" src="gui/sixroll.png" alt="">
+<img id="outsign"  style="display:none; visibility:hidden;" src="gui/outsign.png" alt="">
+
+<img id="black10"  style="display:none; visibility:hidden;" src="fade/black10.png" alt="">
+<img id="black20"  style="display:none; visibility:hidden;" src="fade/black20.png" alt="">
+<img id="black30"  style="display:none; visibility:hidden;" src="fade/black30.png" alt="">
+<img id="black40"  style="display:none; visibility:hidden;" src="fade/black40.png" alt="">
+<img id="black50"  style="display:none; visibility:hidden;" src="fade/black50.png" alt="">
+<img id="black60"  style="display:none; visibility:hidden;" src="fade/black60.png" alt="">
+<img id="black70"  style="display:none; visibility:hidden;" src="fade/black70.png" alt="">
+<img id="black80"  style="display:none; visibility:hidden;" src="fade/black80.png" alt="">
+<img id="black90"  style="display:none; visibility:hidden;" src="fade/black90.png" alt="">
+<img id="black100"  style="display:none; visibility:hidden;" src="fade/black100.png" alt="">
+
+
+</html> 
+
+
+
+
 
