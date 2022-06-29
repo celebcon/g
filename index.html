@@ -9,7 +9,7 @@ p.a {
 
 <body style="background-color:black;">
 
-<canvas id="myCanvas" onload = 'move()' onclick = "clickfunc()" width="800" height="450" style=" padding-left: 0;
+<canvas id="myCanvas" onload = 'move()' onclick = "clickfunc()" width="800" height="400" style=" padding-left: 0;
     padding-right: 0;
 	
     margin-left: auto;
@@ -190,7 +190,7 @@ var myVar = setInterval(move, 20);
 
 var scene = -2; 
 
-var points = 1000;
+var points = 2000;
 
 var shiftX = 0;
 
@@ -303,6 +303,7 @@ if (rolled == 1){
        	if (delcarX == 99*100){homeinfo = 1; girl = "Elizabeth Olsen"; c1 = 500 + randSeed; c2 = 700 + randSeed; c3 = 1000 + randSeed;}
 
        	if (delcarX == 98*100){homeinfo = 1; girl = "Sarah Hyland"; c1 = 300 + randSeed; c2 = 500 + randSeed; c3 = 700 + randSeed;}
+       	if (delcarX == 96*100){homeinfo = 1; girl = "Eiza Gonzalez"; c1 = 400 + randSeed; c2 = 600 + randSeed; c3 = 1000 + randSeed;}
 
        	if (delcarX == 94*100){homeinfo = 1; girl = "Monica Barbaro"; c1 = 200 + randSeed; c2 = 400 + randSeed; c3 = 600 + randSeed;}
 
@@ -313,12 +314,14 @@ if (rolled == 1){
        	if (delcarX == 90*100){homeinfo = 1; girl = "Sammi Hanratty"; c1 = 200 + randSeed; c2 = 400 + randSeed; c3 = 600 + randSeed;}
 
        	if (delcarX == 88*100){homeinfo = 1; girl = "Billie Eilish"; c1 = 400 + randSeed; c2 = 600 + randSeed; c3 = 900 + randSeed;}
+       	if (delcarX == 87*100){homeinfo = 1; girl = "Maisie Williams"; c1 = 300 + randSeed; c2 = 500 + randSeed; c3 = 800 + randSeed;}
 
        	if (delcarX == 85*100){homeinfo = 1; girl = "Anna Kendrick"; c1 = 400 + randSeed; c2 = 600 + randSeed; c3 = 900 + randSeed;}
 
        	if (delcarX == 84*100){homeinfo = 1; girl = "Amanda Cerny"; c1 = 300 + randSeed; c2 = 500 + randSeed; c3 = 700 + randSeed;}
 
        	if (delcarX == 82*100){homeinfo = 1; girl = "April Bowlby"; c1 = 200 + randSeed; c2 = 400 + randSeed; c3 = 600 + randSeed;}
+       	if (delcarX == 81*100){homeinfo = 1; girl = "Lana Del Rey"; c1 = 200 + randSeed; c2 = 400 + randSeed; c3 = 600 + randSeed;}
 
        	if (delcarX == 79*100){homeinfo = 1; girl = "Brianna Hildebrand"; c1 = 200 + randSeed; c2 = 400 + randSeed; c3 = 600 + randSeed;}
        	if (delcarX == 78*100){homeinfo = 1; girl = "Chloe Kim"; c1 = 200 + randSeed; c2 = 400 + randSeed; c3 = 600 + randSeed;}
@@ -331,32 +334,30 @@ if (rolled == 1){
 
 
      	if (delcarX == 97*100){points = points + 500; homeinfo = 0;}		 
-     	if (delcarX == 96*100){points = points + 1000; homeinfo = 0;}		 
      	if (delcarX == 95*100){points = points + 500; homeinfo = 0;}		 
 
      	if (delcarX == 92*100){points = points + 500; homeinfo = 0;}		 
 
      	if (delcarX == 89*100){points = points + 500; homeinfo = 0;}		 
 
-     	if (delcarX == 87*100){points = points + 500; homeinfo = 0;}		 
 
      	if (delcarX == 86*100){points = points + 1000; homeinfo = 0;}		 
 
      	if (delcarX == 83*100){points = points + 500; homeinfo = 0;}		 
 
-     	if (delcarX == 81*100){points = points + 500; homeinfo = 0;}		 
 
      	if (delcarX == 80*100){points = points + 1000; homeinfo = 0;}		 
 
      	if (delcarX == 77*100){points = points + 500; homeinfo = 0;}		 
 
-     	if (delcarX == 76*100){points = points + 1000; homeinfo = 0;}		 
+       	if (delcarX == 76*100){homeinfo = 1; girl = "Hilary Duff"; c1 = 300 + randSeed; c2 = 500 + randSeed; c3 = 700 + randSeed;}
 
      	if (delcarX == 74*100){points = points + 500; homeinfo = 0;}		 
 
      	if (delcarX == 72*100){points = points + 500; homeinfo = 0;}		 
 
-     	if (delcarX == 70*100){points = points + 500; homeinfo = 0;}		 
+       	if (delcarX == 70*100){homeinfo = 1; girl = "Milana Vayntrub"; c1 = 400 + randSeed; c2 = 600 + randSeed; c3 = 800 + randSeed;}
+
      	if (delcarX == 69*100){points = points + 1000; homeinfo = 0;}		 
 
        	if (delcarX == 68*100){homeinfo = 1; girl = "AnnaSophia Robb"; c1 = 300 + randSeed; c2 = 500 + randSeed; c3 = 700 + randSeed;}
@@ -370,7 +371,8 @@ if (rolled == 1){
      	if (delcarX == 63*100){points = points + 500; homeinfo = 0;}		 
        	if (delcarX == 62*100){homeinfo = 1; girl = "Emily VanCamp"; c1 = 200 + randSeed; c2 = 400 + randSeed; c3 = 600 + randSeed;}
      	if (delcarX == 61*100){points = points + 1000; homeinfo = 0;}		 
-     	if (delcarX == 60*100){points = points + 1000; homeinfo = 0;}		 
+
+       	if (delcarX == 60*100){homeinfo = 1; girl = "Hayley Atwell"; c1 = 400 + randSeed; c2 = 600 + randSeed; c3 = 800 + randSeed;}
 
        	if (delcarX == 59*100){homeinfo = 1; girl = "Yvonne Strahovski"; c1 = 400 + randSeed; c2 = 600 + randSeed; c3 = 800 + randSeed;}
        	if (delcarX == 58*100){homeinfo = 1; girl = "Erin Moriarty"; c1 = 200 + randSeed; c2 = 400 + randSeed; c3 = 600 + randSeed;}
@@ -378,7 +380,8 @@ if (rolled == 1){
 
      	if (delcarX == 57*100){points = points + 500; homeinfo = 0;}		 
 
-     	if (delcarX == 55*100){points = points + 500; homeinfo = 0;}		 
+       	if (delcarX == 55*100){homeinfo = 1; girl = "Priyanka Chopra"; c1 = 200 + randSeed; c2 = 400 + randSeed; c3 = 600 + randSeed;}
+
     	if (delcarX == 54*100){points = points + 1000; homeinfo = 0;}		 
 
        	if (delcarX == 53*100){homeinfo = 1; girl = "Kristen Dunst"; c1 = 300 + randSeed; c2 = 500 + randSeed; c3 = 700 + randSeed;}
@@ -386,8 +389,8 @@ if (rolled == 1){
       	if (delcarX == 52*100){homeinfo = 1; girl = "Nina Agdal"; c1 = 200 + randSeed; c2 = 400 + randSeed; c3 = 600 + randSeed;}
 
     	if (delcarX == 51*100){points = points + 500; homeinfo = 0;}		 
- 
-    	if (delcarX == 50*100){points = points + 1000; homeinfo = 0;}		 
+       	if (delcarX == 50*100){homeinfo = 1; girl = "Brie Larson"; c1 = 400 + randSeed; c2 = 600 + randSeed; c3 = 900 + randSeed;}
+
 
      	if (delcarX == 49*100){homeinfo = 1; girl = "Ariel Winter"; c1 = 200 + randSeed; c2 = 400 + randSeed; c3 = 600 + randSeed;}
 
@@ -398,9 +401,9 @@ if (rolled == 1){
    	    if (delcarX == 46*100){points = points + 500; homeinfo = 0;}		 
 
    		if (delcarX == 45*100){homeinfo = 1; girl = "Jane Levy"; c1 = 300 + randSeed; c2 = 500 + randSeed; c3 = 700 + randSeed;}
+   		if (delcarX == 44*100){homeinfo = 1; girl = "Zooey Deschanel"; c1 = 200 + randSeed; c2 = 400 + randSeed; c3 = 600 + randSeed;}
 
-  	    if (delcarX == 44*100){points = points + 500; homeinfo = 0;}		 
-	
+
 	    if (delcarX == 43*100){points = points + 1000; homeinfo = 0;}
 		
   		if (delcarX == 42*100){homeinfo = 1; girl = "Olivia Rodrigo"; c1 = 300 + randSeed; c2 = 500 + randSeed; c3 = 700 + randSeed;}
@@ -409,7 +412,7 @@ if (rolled == 1){
 
  	    if (delcarX == 40*100){points = points + 500; homeinfo = 0;}		 
 	
-	    if (delcarX == 39*100){points = points + 1000; homeinfo = 0;}		 
+		if (delcarX == 39*100){homeinfo = 1; girl = "Yanet Garcia"; c1 = 400 + randSeed; c2 = 600 + randSeed; c3 = 1000 + randSeed;}
 
 		if (delcarX == 38*100){homeinfo = 1; girl = "Mila Kunis"; c1 = 500 + randSeed; c2 = 700 + randSeed; c3 = 1100 + randSeed;}
 		 
@@ -439,7 +442,9 @@ if (rolled == 1){
 
 		if (delcarX == 25*100){homeinfo = 1; girl = "Maude Apatow"; c1 = 200 + randSeed; c2 = 400 + randSeed; c3 = 600 + randSeed;}
 
-		if (delcarX == 24*100){points = points + 500; homeinfo = 0;}		 
+		if (delcarX == 24*100){homeinfo = 1; girl = "Penelope Cruz"; c1 = 300 + randSeed; c2 = 500 + randSeed; c3 = 700 + randSeed;}
+
+
 		if (delcarX == 23*100){points = points + 500; homeinfo = 0;}		 
 		if (delcarX == 22*100){homeinfo = 1; girl = "Candice Swanepoel"; c1 = 300 + randSeed; c2 = 500 + randSeed; c3 = 700 + randSeed;}
 		if (delcarX == 21*100){points = points + 500; homeinfo = 0;}		 
@@ -448,15 +453,18 @@ if (rolled == 1){
 		if (delcarX == 18*100){points = points + 1500; homeinfo = 0;}
 		if (delcarX == 17*100){homeinfo = 1; girl = "Dakota Johnson"; c1 = 300 + randSeed; c2 = 500 + randSeed; c3 = 800 + randSeed;}
 		if (delcarX == 16*100){points = points + 500; homeinfo = 0;}
-		if (delcarX == 15*100){points = points + 500; homeinfo = 0;}
 		if (delcarX == 14*100){homeinfo = 1; girl = "Olivia Munn"; c1 = 400 + randSeed; c2 = 600 + randSeed; c3 = 800 + randSeed;}
 		if (delcarX == 13*100){points = points + 500; homeinfo = 0;}
 		if (delcarX == 12*100){homeinfo = 1; girl = "Natalie Dormer"; c1 = 500 + randSeed; c2 = 700 + randSeed; c3 = 1100 + randSeed;}
-		if (delcarX == 11*100){points = points + 500; homeinfo = 0;}
+		if (delcarX == 11*100){homeinfo = 1; girl = "Sarah Shahi"; c1 = 400 + randSeed; c2 = 600 + randSeed; c3 = 900 + randSeed;}
+		if (delcarX == 15*100){homeinfo = 1; girl = "Christina Hendricks"; c1 = 400 + randSeed; c2 = 600 + randSeed; c3 = 900 + randSeed;}
+
+
 		if (delcarX == 10*100){points = points + 500; homeinfo = 0;}
 		if (delcarX == 9*100){homeinfo = 1; girl = "Emma Roberts"; c1 = 300 + randSeed; c2 = 500 + randSeed; c3 = 700 + randSeed;}
 		if (delcarX == 8*100){homeinfo = 1; girl = "Julia Fox"; c1 = 200 + randSeed; c2 = 400 + randSeed; c3 = 600 + randSeed;}
-		if (delcarX == 7*100){points = points + 500; homeinfo = 0;}
+		if (delcarX == 7*100){homeinfo = 1; girl = "Freya Allan"; c1 = 300 + randSeed; c2 = 500 + randSeed; c3 = 700 + randSeed;}
+
 		if (delcarX == 6*100){points = points + 500; homeinfo = 0;}
 		if (delcarX == 5*100){homeinfo = 1; girl = "Karen Fukuhara"; c1 = 300 + randSeed; c2 = 500 + randSeed; c3 = 700 + randSeed;}
 		if (delcarX == 4*100){points = points + 500; homeinfo = 0;}
